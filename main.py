@@ -4,7 +4,6 @@ from pydantic import BaseModel
 app = FastAPI(title="Abbreviation CRUD API")
 
 
-# ===== Model =====
 class Abbreviation(BaseModel):
     abbreviation: str
     meaning: str
@@ -14,18 +13,25 @@ class AbbreviationOut(Abbreviation):
     id: int
 
 
-# ===== Fake Database (in-memory) =====
 db = [
-    {"id": 2, "abbreviation": "sd", "meaning": "sữa đặc"},
-    {"id": 3, "abbreviation": "vnm", "meaning": "Vinamilk"},
-    {"id": 4, "abbreviation": "sdd", "meaning": "sữa dinh dưỡng"},
+    {"id": 1, "abbreviation": "gf", "meaning": "green farm"},
+    {"id": 2, "abbreviation": "scu", "meaning": "sữa chua uống"},
+    {"id": 3, "abbreviation": "sca", "meaning": "sữa chua ăn"},
+    {"id": 4, "abbreviation": "nspn", "meaning": "ngôi sao phương nam"},
+    {"id": 5, "abbreviation": "sdd", "meaning": "sữa dinh dưỡng"},
+    {"id": 6, "abbreviation": "sttt", "meaning": "sữa tươi tiệt trùng"},
     {"id": 8, "abbreviation": "sdn", "meaning": "sữa đậu nành"},
+    {"id": 9, "abbreviation": "sb", "meaning": "sữa bột"},
+    {"id": 10, "abbreviation": "sbps", "meaning": "sữa bột pha sẵn"},
+    {"id": 11, "abbreviation": "sd", "meaning": "sữa đặc"},
+    {"id": 12, "abbreviation": "st", "meaning": "sữa tươi"},
+    {"id": 13, "abbreviation": "sbte", "meaning": "sữa bột trẻ em"},
+    {"id": 15, "abbreviation": "vnmn", "meaning": "vinamilk"},
+    {"id": 18, "abbreviation": "ot", "meaning": "sữa ông thọ"},
 ]
 
 
-# ===== CRUD APIs =====
 
-# READ ALL
 @app.get("/abbreviations", response_model=list[AbbreviationOut])
 def get_all():
     return db
@@ -72,3 +78,4 @@ def delete_abbreviation(abbr_id: int):
             db.pop(i)
             return {"message": "Deleted successfully"}
     raise HTTPException(status_code=404, detail="Abbreviation not found")
+
